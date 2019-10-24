@@ -28,9 +28,7 @@ function App() {
       }
     })
     .then(r=>r.json())
-    console.log(school)
     setSchool(school)
-    console.log('after call', !!school);
     setLoading(false)
   }
 

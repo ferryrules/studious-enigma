@@ -4,9 +4,6 @@ import { Segment } from 'semantic-ui-react'
 
 function School(props) {
   const { school } = props
-  // console.log('application essays', school['application_essays']);
-  // console.log('applications', school['applications']);
-  // console.log('supplements', school['supplements']);
   return (
     <Segment fluid>
       <h1 className="uni-header">
