@@ -7,7 +7,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #399890;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,4 +19,11 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.uni-header {
+  background-color: #399890;
+  min-height: 10vh;
+  padding-top: 3vh;
+  color: white;
 }

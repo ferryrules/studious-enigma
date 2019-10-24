@@ -1,5 +1,7 @@
-import React from 'react';
-import { Dropdown } from 'semantic-ui-react'
+import React, { useState, Fragment } from 'react';
+import { Dropdown, Segment } from 'semantic-ui-react'
+import LoadingPlaceholder from './components/loadingPlaceholder.js'
+import School from './containers/school.js'
 import './App.css';
 
 const API = 'https://content-staging.prompt.com/api/data/university/'
@@ -10,21 +12,48 @@ const options = [
   { key: 3, text: 'Prompt University', value: 98765 },
 ]
 
-const selectSchool = async(e) => {
-  const school = await fetch(`${API}${options[0]['value']}/?identifierType=iped`, {
-    headers: {
-      'Authorization': `Token ${API_KEY}`
-    }
-  })
-  .then(r=>r.json())
-  console.log(school)
-}
+
 function App() {
+  const [school, setSchool] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const selectSchool = async(e) => {
+    setLoading(true)
+    let iped = options.find(s=>{
+      return s['text'] === e.target.innerText
+    })
+    const school = await fetch(`${API}${iped['value']}/?identifierType=iped`, {
+      headers: {
+        'Authorization': `Token ${API_KEY}`
+      }
+    })
+    .then(r=>r.json())
+    console.log(school)
+    setSchool(school)
+    console.log('after call', !!school);
+    setLoading(false)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <Dropdown clearable options={options} selection onChange={(e)=>selectSchool(e)}/>
-      </header>
+      { loading && !!school ?
+          <Segment>
+            <LoadingPlaceholder />
+          </Segment>
+        :
+        !!school['name'] ?
+          <Fragment>
+            <School school={school} />
+            <Dropdown clearable options={options} selection onChange={(e)=>selectSchool(e)}/>
+          </Fragment>
+        :
+        <header className="App-header">
+          Select Your University
+          <br />
+          <br />
+          <Dropdown clearable options={options} selection onChange={(e)=>selectSchool(e)}/>
+        </header>
+      }
     </div>
   );
 }
