@@ -8,7 +8,6 @@ From terminal:
 - `touch .env`
  
 Edit the .env file and add REACT_APP_API_KEY="your api key"
-Save and close
 
 ## Available Scripts
 
