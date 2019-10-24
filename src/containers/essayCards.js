@@ -3,7 +3,7 @@ import EssayCard from '../components/essayCard.js'
 import SuppCards from './suppCards.js'
 import {  } from 'semantic-ui-react'
 
-function EssayCards(props) {
+export default function EssayCards(props) {
   const { application_essays, applications, supplements } = props.school
   applications.push("University Application")
 
@@ -36,5 +36,3 @@ function EssayCards(props) {
     </Fragment>
   )
 }
-
-export default EssayCards

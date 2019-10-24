@@ -1,6 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { Dropdown, Segment } from 'semantic-ui-react'
-import LoadingPlaceholder from './components/loadingPlaceholder.js'
+import { Dropdown, Dimmer, Loader } from 'semantic-ui-react'
 import School from './containers/school.js'
 import './App.css';
 
@@ -12,8 +11,7 @@ const options = [
   { key: 3, text: 'Prompt University', value: 98765 },
 ]
 
-
-function App() {
+export default function App() {
   const [school, setSchool] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -35,9 +33,9 @@ function App() {
   return (
     <div className="App">
       { loading && !!school ?
-          <Segment>
-            <LoadingPlaceholder />
-          </Segment>
+          <Dimmer active>
+            <Loader>Loading</Loader>
+          </Dimmer>
         :
         !!school['name'] ?
           <Fragment>
@@ -55,5 +53,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
