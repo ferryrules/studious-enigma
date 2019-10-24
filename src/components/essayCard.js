@@ -2,7 +2,7 @@ import React, {useState, Fragment} from 'react'
 import { Accordion, Icon, Grid } from 'semantic-ui-react'
 
 export default function EssayCard(props) {
-  const { name, optional, topic, prompts, display_length } = props.commonEssay
+  const { name, optional, topic, prompts, display_length, instructions } = props.commonEssay
   const [activeIndex, setActiveIndex] = useState(1)
   const handleClick = (e, titleProps) => {
     const { index } = titleProps
@@ -12,7 +12,7 @@ export default function EssayCard(props) {
   const eachPrompt = prompts.map(p=>{
     return (
       <Fragment>
-        {p['prompt'].startsWith('<p>') ? p['prompt'].slice(3,-4) : p['prompt']}
+        <div dangerouslySetInnerHTML={{ __html: p['prompt']}} />
         <br />
       </Fragment>
     )
@@ -29,6 +29,9 @@ export default function EssayCard(props) {
       </Accordion.Title>
       <Accordion.Content active={activeIndex === 0}>
         <Grid fluid textAlign='left'>
+          <Grid.Row textAlign='left' dangerouslySetInnerHTML={{ __html: instructions}}>
+            {instructions.length > 0 ? 'INSTRUCTIONS: ' : null }
+          </Grid.Row>
           <Grid.Column width={4}>
             <Grid.Row>
               <h5>DETAILS</h5>
@@ -39,8 +42,12 @@ export default function EssayCard(props) {
           </Grid.Column>
           <Grid.Column width={12}>
             <Grid.Row>
-              <h5>PROMPTS</h5>
-              {eachPrompt}
+              {prompts.length > 0 ? (
+                <Fragment>
+                  <h5>PROMPTS</h5>
+                  {eachPrompt}
+                </Fragment>
+              ) : null }
             </Grid.Row>
           </Grid.Column>
         </Grid>

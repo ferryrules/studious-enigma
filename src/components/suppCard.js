@@ -3,7 +3,6 @@ import { Accordion, Icon, Grid } from 'semantic-ui-react'
 
 export default function SuppCards(props) {
   const { name, optional, topic, prompts, display_length, instructions } = props.supp
-  console.log('supp card', name);
   const [activeIndex, setActiveIndex] = useState(1)
   const handleClick = (e, titleProps) => {
     const { index } = titleProps
@@ -13,7 +12,7 @@ export default function SuppCards(props) {
   const eachPrompt = prompts.map(p=>{
     return (
       <Fragment>
-        {p['prompt'].startsWith('<p>') ? p['prompt'].slice(3,-4) : p['prompt']}
+        <div dangerouslySetInnerHTML={{ __html: p['prompt']}} />
         <br />
       </Fragment>
     )
@@ -30,7 +29,7 @@ export default function SuppCards(props) {
       </Accordion.Title>
       <Accordion.Content active={activeIndex === 0}>
         <Grid fluid textAlign='left'>
-          <Grid.Row>{instructions}</Grid.Row>
+          <Grid.Row>{instructions.length > 0 ? 'INSTRUCTIONS: ' : null } <div dangerouslySetInnerHTML={{ __html: instructions}} /></Grid.Row>
           <Grid.Column width={4}>
             <Grid.Row>
               <h5>DETAILS</h5>

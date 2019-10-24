@@ -3,7 +3,7 @@ import SuppCard from '../components/suppCard.js'
 
 export default function SuppCards(props) {
   const { supps } = props
-  console.log('supp card', props.supps);
+  // console.log('supp card', props.supps);
 
   const eachSupp = supps.map(s=>{
     return <SuppCard supp={s} />
