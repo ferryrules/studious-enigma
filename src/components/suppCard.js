@@ -9,6 +9,7 @@ export default function SuppCards(props) {
     const newIndex = activeIndex === index ? -1 : index
     setActiveIndex(newIndex)
   }
+  console.log(instructions);
   const eachPrompt = prompts.map(p=>{
     return (
       <Fragment>
@@ -17,7 +18,29 @@ export default function SuppCards(props) {
       </Fragment>
     )
   })
-
+  const noteOrInstructions = () => {
+    if (instructions === "<p>Note: This prompt only appears after the application fee is paid.</p>") {
+      return (
+        <Fragment>
+          <Grid.Column width={16}>
+            <i><div dangerouslySetInnerHTML={{ __html: instructions}} /></i>
+          </Grid.Column>
+        </Fragment>
+      )
+    }
+    if (instructions) {
+      let instruct = (instructions.startsWith('<p>')) ?
+        <Grid.Row dangerouslySetInnerHTML={{ __html: instructions}} />
+      :
+        <Grid.Row>{instructions}</Grid.Row>
+      return (
+        <Grid>
+          <b>INSTRUCTIONS: </b>
+          <p>{instruct}</p>
+        </Grid>
+      )
+    }
+  }
   return (
     <Accordion fluid styled>
       <Accordion.Title
@@ -29,11 +52,12 @@ export default function SuppCards(props) {
       </Accordion.Title>
       <Accordion.Content active={activeIndex === 0}>
         <Grid fluid textAlign='left'>
-          <Grid.Row>{instructions.length > 0 ? 'INSTRUCTIONS: ' : null } <div dangerouslySetInnerHTML={{ __html: instructions}} /></Grid.Row>
+          {noteOrInstructions()}
           <Grid.Column width={4}>
             <Grid.Row>
               <h5>DETAILS</h5>
               Topic: { topic ? `${topic}` : 'None' }
+              <br />
               Max Length: {display_length}
             </Grid.Row>
           </Grid.Column>

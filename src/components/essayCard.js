@@ -29,9 +29,8 @@ export default function EssayCard(props) {
       </Accordion.Title>
       <Accordion.Content active={activeIndex === 0}>
         <Grid fluid textAlign='left'>
-          <Grid.Row textAlign='left' dangerouslySetInnerHTML={{ __html: instructions}}>
-            {instructions.length > 0 ? 'INSTRUCTIONS: ' : null }
-          </Grid.Row>
+          { instructions ? <b>INSTRUCTIONS: </b> : null }
+          <Grid.Row dangerouslySetInnerHTML={{ __html: instructions}} />
           <Grid.Column width={4}>
             <Grid.Row>
               <h5>DETAILS</h5>
