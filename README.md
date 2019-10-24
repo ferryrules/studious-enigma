@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 You will need to create an .env file to host your API key.
 After cloning, in the root folder, create the .env file
 From terminal: 
-- `git clone <repo url> && cd studious-enimga`
+- `git clone git@github.com:ferryrules/studious-enigma.git && cd studious-enimga`
 - `touch .env`
  
 Edit the .env file and add REACT_APP_API_KEY='<your API key>'
