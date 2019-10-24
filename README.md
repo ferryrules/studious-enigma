@@ -7,7 +7,7 @@ From terminal:
 - `cd studious-enimga`
 - `touch .env`
  
-Edit the .env file and add REACT_APP_API_KEY='<your API key>'
+Edit the .env file and add REACT_APP_API_KEY='"<your API key>"'
 Save and close
 
 ## Available Scripts
