@@ -83,7 +83,7 @@ export default function App() {
     <div className="App">
       { loading && !!school ?
           <Dimmer active>
-            <Loader>Loading</Loader>
+            <Loader size='massive'>Loading</Loader>
           </Dimmer>
         :
         !!school['name'] ?
