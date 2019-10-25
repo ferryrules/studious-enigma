@@ -1,5 +1,5 @@
 import React, {useState, Fragment} from 'react'
-import { Accordion, Icon, Header, Grid, Container, Segment, Button, Form, TextArea } from 'semantic-ui-react'
+import { Button, Form, TextArea } from 'semantic-ui-react'
 
 export default function EssayDetails(props) {
   const { prompt } = props
