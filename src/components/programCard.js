@@ -1,4 +1,5 @@
 import React, {useState, Fragment} from 'react'
+import EditPrompt from './editPrompts.js'
 import { Accordion, Icon, Grid, Container, Header } from 'semantic-ui-react'
 
 export default function SuppCards(props) {
@@ -28,6 +29,7 @@ export default function SuppCards(props) {
       return (
         <Grid>
           <b>INSTRUCTIONS: </b>
+          <br />
           <Container textAlign='left'>{instruct}</Container>
         </Grid>
       )
@@ -37,10 +39,7 @@ export default function SuppCards(props) {
   const eachEssay = program['supplements'].map(ps=>{
     const eachPrompt = ps['prompts'].map(p=>{
       return (
-        <Fragment>
-          <div dangerouslySetInnerHTML={{ __html: p['prompt']}} />
-          <br />
-        </Fragment>
+        <EditPrompt prompt={p['prompt']} />
       )
     })
     return (
@@ -70,15 +69,24 @@ export default function SuppCards(props) {
           active={activeIndex===0}
           index={0}
           onClick={handleClick}>
-          <Header as='h3' textAlign='left'>
-            <Icon name='dropdown' />
-             {program['name']}
-          </Header>
+          <Grid>
+            <Grid.Column textAlign='left' width={8}>
+              <Header as='h3'>
+                <Icon name='dropdown' />
+                 {program['name']}
+              </Header>
+            </Grid.Column>
+            <Grid.Column textAlign='right' width={8}>
+              <Header as='h5'>
+                {program['supplements'].length} { program['supplements'].length === 1 ? 'Essay' : 'Essays' }
+              </Header>
+            </Grid.Column>
+          </Grid>
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
           <Grid fluid textAlign='left'>
             {noteOrInstructions()}
-            <br />
+            <Grid.Row></Grid.Row>
             {eachEssay}
           </Grid>
         </Accordion.Content>

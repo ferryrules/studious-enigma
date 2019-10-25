@@ -1,5 +1,6 @@
 import React, {useState, Fragment} from 'react'
-import { Accordion, Icon, Header, Grid, Container } from 'semantic-ui-react'
+import EditPrompt from './editPrompts.js'
+import { Accordion, Icon, Header, Grid, Container, Segment, Button, Input } from 'semantic-ui-react'
 
 export default function EssayDetails(props) {
   const { essay, details } = props
@@ -13,10 +14,7 @@ export default function EssayDetails(props) {
   const eachDetail = details.map(d=>{
     const eachPrompt = d['prompts'].map(p=>{
       return (
-        <Fragment>
-          <div dangerouslySetInnerHTML={{ __html: p['prompt']}} />
-          <br />
-        </Fragment>
+        <EditPrompt prompt={p['prompt']} />
       )
     })
     const noteOrInstructions = () => {
@@ -37,6 +35,8 @@ export default function EssayDetails(props) {
         return (
           <Grid>
             <b>INSTRUCTIONS: </b>
+            <br />
+            <br />
             <Container textAlign='left'>{instruct}</Container>
           </Grid>
         )
@@ -44,9 +44,10 @@ export default function EssayDetails(props) {
     }
     return (
       <Accordion.Content active={activeIndex === 0}>
+      <Segment>
         <Grid fluid textAlign='left'>
           {noteOrInstructions()}
-          <br />
+          <Grid.Row></Grid.Row>
           <Grid.Column width={4}>
             <Grid.Row>
               <h5>DETAILS</h5>
@@ -66,6 +67,7 @@ export default function EssayDetails(props) {
             </Grid.Row>
           </Grid.Column>
         </Grid>
+        </Segment>
       </Accordion.Content>
     )
   })
@@ -78,10 +80,19 @@ export default function EssayDetails(props) {
             active={activeIndex===0}
             index={0}
             onClick={handleClick}>
-            <Header as='h3' textAlign='left'>
-              <Icon name='dropdown' />
-               {essay}
-            </Header>
+            <Grid>
+              <Grid.Column textAlign='left' width={8}>
+                <Header as='h3'>
+                  <Icon name='dropdown' />
+                   {essay}
+                </Header>
+              </Grid.Column>
+              <Grid.Column textAlign='right' width={8}>
+                <Header as='h5'>
+                  {details.length} { details.length === 1 ? 'Essay' : 'Essays' }
+                </Header>
+              </Grid.Column>
+            </Grid>
           </Accordion.Title>
           {eachDetail}
         </Accordion>)
