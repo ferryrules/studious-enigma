@@ -1,5 +1,6 @@
 import React, {useState, Fragment} from 'react'
 import EditPrompt from './editPrompts.js'
+import NoteOrInstructions from './noteOrInstructions.js'
 import { Accordion, Icon, Grid, Container, Header } from 'semantic-ui-react'
 
 export default function SuppCards(props) {
@@ -9,31 +10,6 @@ export default function SuppCards(props) {
     const { index } = titleProps
     const newIndex = activeIndex === index ? -1 : index
     setActiveIndex(newIndex)
-  }
-
-  const noteOrInstructions = () => {
-    if (program['instructions'] === "<p>Note: This prompt only appears after the application fee is paid.</p>") {
-      return (
-        <Fragment>
-          <Grid.Column width={16}>
-            <i><div dangerouslySetInnerHTML={{ __html: program['instructions']}} /></i>
-          </Grid.Column>
-        </Fragment>
-      )
-    }
-    if (program['instructions']) {
-      let instruct = (program['instructions'].startsWith('<p>')) ?
-      <Grid.Row dangerouslySetInnerHTML={{ __html: program['instructions']}} />
-      :
-      <Grid.Row>{program['instructions']}</Grid.Row>
-      return (
-        <Grid>
-          <b>INSTRUCTIONS: </b>
-          <br />
-          <Container textAlign='left'>{instruct}</Container>
-        </Grid>
-      )
-    }
   }
 
   const eachEssay = program['supplements'].map(ps=>{
@@ -85,7 +61,7 @@ export default function SuppCards(props) {
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
           <Grid fluid textAlign='left'>
-            {noteOrInstructions()}
+            <NoteOrInstructions text={program['instructions']} />
             <Grid.Row></Grid.Row>
             {eachEssay}
           </Grid>

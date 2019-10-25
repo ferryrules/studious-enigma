@@ -88,7 +88,7 @@ export default function App() {
         :
         !!school['name'] ?
           <Fragment>
-            <School school={school} programs={progMajScholArray} appSupp={appSuppArray} essayKeys={essayTypeKeys} />
+            <School school={school} programs={progMajScholArray} appSupp={appSuppArray} />
             <Button onClick={()=>resetChoice([])}>Back</Button>
           </Fragment>
         :

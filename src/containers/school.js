@@ -4,15 +4,15 @@ import ProgramCards from './programCards.js'
 import { Segment } from 'semantic-ui-react'
 
 function School(props) {
-  const { school, programs, appSupp, essayKeys } = props
-  
+  const { school, programs, appSupp } = props
+
   return (
     <Segment fluid>
       <h1 className="uni-header">
         Essay Requirements - {school['name']}
       </h1>
-      <EssayCards appSupp={appSupp} essayKeys={essayKeys} />
-      <ProgramCards programs={programs} essayKeys={essayKeys} />
+      <EssayCards appSupp={appSupp} />
+      <ProgramCards programs={programs} />
     </Segment>
   )
 }

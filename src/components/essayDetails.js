@@ -1,5 +1,6 @@
 import React, {useState, Fragment} from 'react'
 import EditPrompt from './editPrompts.js'
+import NoteOrInstructions from './noteOrInstructions.js'
 import { Accordion, Icon, Header, Grid, Container, Segment } from 'semantic-ui-react'
 
 export default function EssayDetails(props) {
@@ -18,29 +19,7 @@ export default function EssayDetails(props) {
       )
     })
     const noteOrInstructions = () => {
-      if (d['instructions'] === "<p>Note: This prompt only appears after the application fee is paid.</p>") {
-        return (
-          <Fragment>
-            <Grid.Column width={16}>
-              <i><div dangerouslySetInnerHTML={{ __html: d['instructions']}} /></i>
-            </Grid.Column>
-          </Fragment>
-        )
-      }
-      if (d['instructions']) {
-        let instruct = (d['instructions'].startsWith('<p>')) ?
-          <Grid.Row dangerouslySetInnerHTML={{ __html: d['instructions']}} />
-        :
-          <Grid.Row>{d['instructions']}</Grid.Row>
-        return (
-          <Grid>
-            <b>INSTRUCTIONS: </b>
-            <br />
-            <br />
-            <Container textAlign='left'>{instruct}</Container>
-          </Grid>
-        )
-      }
+      return <NoteOrInstructions text={d['instructions']} />
     }
     return (
       <Accordion.Content active={activeIndex === 0}>
@@ -58,12 +37,8 @@ export default function EssayDetails(props) {
           </Grid.Column>
           <Grid.Column width={12}>
             <Grid.Row>
-              {d['prompts'].length > 0 ? (
-                <Fragment>
-                  <h5>PROMPTS</h5>
-                  {eachPrompt}
-                </Fragment>
-              ) : null }
+              <h5>PROMPTS</h5>
+              {eachPrompt}
             </Grid.Row>
           </Grid.Column>
         </Grid>
