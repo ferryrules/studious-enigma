@@ -1,7 +1,7 @@
 import React, {useState, Fragment} from 'react'
 import EditPrompt from './editPrompts.js'
 import NoteOrInstructions from './noteOrInstructions.js'
-import { Accordion, Icon, Grid, Container, Header } from 'semantic-ui-react'
+import { Accordion, Icon, Grid, Header } from 'semantic-ui-react'
 
 export default function SuppCards(props) {
   const { program } = props

@@ -1,6 +1,5 @@
-import React, {useState, Fragment} from 'react'
-import EditPrompt from './editPrompts.js'
-import { Accordion, Icon, Grid, Container, Header } from 'semantic-ui-react'
+import React, { Fragment } from 'react'
+import { Grid, Container } from 'semantic-ui-react'
 
 export default function NoteOrInstructions(props) {
   const { text } = props
@@ -32,7 +31,7 @@ export default function NoteOrInstructions(props) {
       )
     }
   }
-  
+
   return (
     <Fragment>
       {note() ? note() : instruct()}

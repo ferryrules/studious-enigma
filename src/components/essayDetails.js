@@ -1,7 +1,7 @@
 import React, {useState, Fragment} from 'react'
 import EditPrompt from './editPrompts.js'
 import NoteOrInstructions from './noteOrInstructions.js'
-import { Accordion, Icon, Header, Grid, Container, Segment } from 'semantic-ui-react'
+import { Accordion, Icon, Header, Grid, Segment } from 'semantic-ui-react'
 
 export default function EssayDetails(props) {
   const { essay, details } = props
