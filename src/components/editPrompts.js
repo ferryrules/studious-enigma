@@ -6,8 +6,6 @@ export default function EssayDetails(props) {
   const [editPrompt, setEditPrompt] = useState(false)
   const [newPrompt, setNewPrompt] = useState([prompt])
 
-  // console.log(prompt);
-  console.log(newPrompt);
   return (
     <Fragment>
       { editPrompt ? (
