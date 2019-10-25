@@ -1,15 +1,18 @@
-import React, {Fragment} from 'react'
+import React from 'react'
+import ProgramCard from '../components/programCard.js'
 
 export default function ProgramCards(props) {
   const { programs } = props
 
   const eachProgram = programs.map(p=>{
-    return p['name']
+    return (
+      <ProgramCard program={p} />
+    )
   })
 
   return (
-    <Fragment>
+    <div>
       {eachProgram}
-    </Fragment>
+    </div>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { Dropdown, Dimmer, Loader } from 'semantic-ui-react'
+import { Dropdown, Dimmer, Loader, Button } from 'semantic-ui-react'
 import School from './containers/school.js'
 import './App.css';
 
@@ -15,10 +15,12 @@ const essayTypeKeys = ['Application Essay', 'Required Supplement', 'Optional Sup
 export default function App() {
   const [school, setSchool] = useState([])
   const [loading, setLoading] = useState(false)
-  const [progMajScholArray] = useState([])
-  const [appSuppArray] = useState([])
+  const [progMajScholArray, setProgMajScholArray] = useState([])
+  const [appSuppArray, setAppSuppArray] = useState([])
 
   const selectSchool = async(e) => {
+    progMajScholArray.forEach(p=>p.pop())
+    appSuppArray.forEach(a=>a.pop())
     setLoading(true)
     let iped = options.find(s=>{
       return s['text'] === e.target.innerText
@@ -71,6 +73,12 @@ export default function App() {
     setLoading(false)
   }
 
+  const resetChoice = () => {
+    setSchool([])
+    setProgMajScholArray([])
+    setAppSuppArray([])
+  }
+
   return (
     <div className="App">
       { loading && !!school ?
@@ -81,7 +89,7 @@ export default function App() {
         !!school['name'] ?
           <Fragment>
             <School school={school} programs={progMajScholArray} appSupp={appSuppArray} essayKeys={essayTypeKeys} />
-            <Dropdown clearable options={options} selection onChange={(e)=>selectSchool(e)}/>
+            <Button onClick={()=>resetChoice([])}>Back</Button>
           </Fragment>
         :
         <header className="App-header">

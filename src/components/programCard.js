@@ -1,77 +1,88 @@
 import React, {useState, Fragment} from 'react'
-import { Accordion, Icon, Grid } from 'semantic-ui-react'
+import { Accordion, Icon, Grid, Container, Header } from 'semantic-ui-react'
 
 export default function SuppCards(props) {
-  const { name, optional, topic, prompts, display_length, instructions } = props.supp
+  const { program } = props
   const [activeIndex, setActiveIndex] = useState(1)
   const handleClick = (e, titleProps) => {
     const { index } = titleProps
     const newIndex = activeIndex === index ? -1 : index
     setActiveIndex(newIndex)
   }
-  const eachPrompt = prompts.map(p=>{
-    return (
-      <Fragment>
-        <div dangerouslySetInnerHTML={{ __html: p['prompt']}} />
-        <br />
-      </Fragment>
-    )
-  })
+
   const noteOrInstructions = () => {
-    if (instructions === "<p>Note: This prompt only appears after the application fee is paid.</p>") {
+    if (program['instructions'] === "<p>Note: This prompt only appears after the application fee is paid.</p>") {
       return (
         <Fragment>
           <Grid.Column width={16}>
-            <i><div dangerouslySetInnerHTML={{ __html: instructions}} /></i>
+            <i><div dangerouslySetInnerHTML={{ __html: program['instructions']}} /></i>
           </Grid.Column>
         </Fragment>
       )
     }
-    if (instructions) {
-      let instruct = (instructions.startsWith('<p>')) ?
-        <Grid.Row dangerouslySetInnerHTML={{ __html: instructions}} />
+    if (program['instructions']) {
+      let instruct = (program['instructions'].startsWith('<p>')) ?
+      <Grid.Row dangerouslySetInnerHTML={{ __html: program['instructions']}} />
       :
-        <Grid.Row>{instructions}</Grid.Row>
+      <Grid.Row>{program['instructions']}</Grid.Row>
       return (
         <Grid>
           <b>INSTRUCTIONS: </b>
-          <p>{instruct}</p>
+          <Container textAlign='left'>{instruct}</Container>
         </Grid>
       )
     }
   }
+
+  const eachEssay = program['supplements'].map(ps=>{
+    const eachPrompt = ps['prompts'].map(p=>{
+      return (
+        <Fragment>
+          <div dangerouslySetInnerHTML={{ __html: p['prompt']}} />
+          <br />
+        </Fragment>
+      )
+    })
+    return (
+      <Fragment>
+        <Grid.Column width={4}>
+          <Grid.Row>
+            <h5>DETAILS</h5>
+            Max Length: {ps['display_length']}
+            <br />
+            { ps['topic'] ? `Topic: ${ps['topic']}` : null }
+          </Grid.Row>
+        </Grid.Column>
+        <Grid.Column width={12}>
+          <Grid.Row>
+            <h5>PROMPTS</h5>
+            {eachPrompt}
+          </Grid.Row>
+        </Grid.Column>
+      </Fragment>
+    )
+  })
+
   return (
-    <Accordion fluid styled>
-      <Accordion.Title
-        active={activeIndex===0}
-        index={0}
-        onClick={handleClick}>
-        <Icon name='dropdown' />
-        {name} {optional ? <i> *Optional</i> : null}
-      </Accordion.Title>
-      <Accordion.Content active={activeIndex === 0}>
-        <Grid fluid textAlign='left'>
-          {noteOrInstructions()}
-          <Grid.Column width={4}>
-            <Grid.Row>
-              <h5>DETAILS</h5>
-              Topic: { topic ? `${topic}` : 'None' }
-              <br />
-              Max Length: {display_length}
-            </Grid.Row>
-          </Grid.Column>
-          <Grid.Column width={12}>
-            <Grid.Row>
-              {prompts.length > 0 ? (
-                <Fragment>
-                  <h5>PROMPTS</h5>
-                  {eachPrompt}
-                </Fragment>
-              ) : null }
-            </Grid.Row>
-          </Grid.Column>
-        </Grid>
-      </Accordion.Content>
-    </Accordion>
+    <Fragment textAlign='center'>
+      <Accordion fluid styled>
+        <Accordion.Title
+          active={activeIndex===0}
+          index={0}
+          onClick={handleClick}>
+          <Header as='h3' textAlign='left'>
+            <Icon name='dropdown' />
+             {program['name']}
+          </Header>
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === 0}>
+          <Grid fluid textAlign='left'>
+            {noteOrInstructions()}
+            <br />
+            {eachEssay}
+          </Grid>
+        </Accordion.Content>
+      </Accordion>
+    </Fragment>
   )
 }

@@ -1,56 +1,18 @@
-import React, {useState, Fragment} from 'react'
-import { Accordion, Icon, Grid } from 'semantic-ui-react'
+import React from 'react'
+import EssayDetails from './essayDetails.js'
 
 export default function EssayCard(props) {
-  const { name, optional, topic, prompts, display_length, instructions } = props.commonEssay
-  const [activeIndex, setActiveIndex] = useState(1)
-  const handleClick = (e, titleProps) => {
-    const { index } = titleProps
-    const newIndex = activeIndex === index ? -1 : index
-    setActiveIndex(newIndex)
-  }
-  const eachPrompt = prompts.map(p=>{
+  const { essays } = props
+
+  const eachEssay = Object.entries(essays).map(es=>{
     return (
-      <Fragment>
-        <div dangerouslySetInnerHTML={{ __html: p['prompt']}} />
-        <br />
-      </Fragment>
+      <EssayDetails essay={es[0]} details={es[1]} />
     )
   })
 
   return (
-    <Accordion fluid styled>
-      <Accordion.Title
-        active={activeIndex===0}
-        index={0}
-        onClick={handleClick}>
-        <Icon name='dropdown' />
-        {name} {optional ? <i> *Optional</i> : null}
-      </Accordion.Title>
-      <Accordion.Content active={activeIndex === 0}>
-        <Grid fluid textAlign='left'>
-          { instructions ? <b>INSTRUCTIONS: </b> : null }
-          <Grid.Row dangerouslySetInnerHTML={{ __html: instructions}} />
-          <Grid.Column width={4}>
-            <Grid.Row>
-              <h5>DETAILS</h5>
-              { topic ? `Topic: ${topic}` : null }
-              <br />
-              Max Length: {display_length}
-            </Grid.Row>
-          </Grid.Column>
-          <Grid.Column width={12}>
-            <Grid.Row>
-              {prompts.length > 0 ? (
-                <Fragment>
-                  <h5>PROMPTS</h5>
-                  {eachPrompt}
-                </Fragment>
-              ) : null }
-            </Grid.Row>
-          </Grid.Column>
-        </Grid>
-      </Accordion.Content>
-    </Accordion>
+    <div>
+      {eachEssay}
+    </div>
   )
 }
