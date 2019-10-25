@@ -9,7 +9,6 @@ export default function SuppCards(props) {
     const newIndex = activeIndex === index ? -1 : index
     setActiveIndex(newIndex)
   }
-  console.log(instructions);
   const eachPrompt = prompts.map(p=>{
     return (
       <Fragment>

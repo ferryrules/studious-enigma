@@ -10,10 +10,13 @@ const options = [
   { key: 2, text: 'Georgetown', value: 131496 },
   { key: 3, text: 'Prompt University', value: 98765 },
 ]
+const essayTypeKeys = ['Application Essay', 'Required Supplement', 'Optional Supplement']
 
 export default function App() {
   const [school, setSchool] = useState([])
   const [loading, setLoading] = useState(false)
+  const [progMajScholArray] = useState([])
+  const [appSuppArray] = useState([])
 
   const selectSchool = async(e) => {
     setLoading(true)
@@ -27,6 +30,44 @@ export default function App() {
     })
     .then(r=>r.json())
     setSchool(school)
+    if (!school.applications.includes('University Application')) {
+      school.applications.push('University Application')
+    }
+    school.programs.forEach(p=>{
+      if (p.supplements.length > 0) {
+        progMajScholArray.push(p)
+      }
+    })
+
+    school.supplements.forEach(sup=>{
+      sup.applications.forEach(supap=>{
+        if (!appSuppArray[supap]) {
+          // eslint-disable-next-line
+          essayTypeKeys.map(etk=>{
+            appSuppArray[supap] = {...appSuppArray[supap], [etk]: []}
+          })
+        }
+        if (sup.optional) {
+          appSuppArray[supap]['Optional Supplement'].push(sup)
+        } else {
+          appSuppArray[supap]['Required Supplement'].push(sup)
+        }
+      })
+    })
+    school.application_essays.forEach(app_es=>{
+      if (app_es.applications.length === 0) {
+        app_es.applications.push('Common App')
+      }
+      app_es.applications.forEach(app_es_app=>{
+        if (!appSuppArray[app_es_app]) {
+          // eslint-disable-next-line
+          essayTypeKeys.map(etk=>{
+            appSuppArray[app_es_app] = {...appSuppArray[app_es_app], [etk]: []}
+          })
+        }
+        appSuppArray[app_es_app]['Application Essay'].push(app_es)
+      })
+    })
     setLoading(false)
   }
 
@@ -39,7 +80,7 @@ export default function App() {
         :
         !!school['name'] ?
           <Fragment>
-            <School school={school} />
+            <School school={school} programs={progMajScholArray} appSupp={appSuppArray} essayKeys={essayTypeKeys} />
             <Dropdown clearable options={options} selection onChange={(e)=>selectSchool(e)}/>
           </Fragment>
         :
