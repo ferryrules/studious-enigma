@@ -24,6 +24,7 @@ export default function NoteOrInstructions(props) {
       <Grid.Row>{text}</Grid.Row>
       return (
         <Grid>
+          <Grid.Row />
           <b>INSTRUCTIONS: </b>
           <br />
           <Container textAlign='left'>{instruct}</Container>

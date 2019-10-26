@@ -24,7 +24,7 @@ export default function EssayDetails(props) {
     return (
       <Accordion.Content active={activeIndex === 0}>
       <Segment>
-        <Grid fluid textAlign='left'>
+        <Grid fluid textAlign='left' divided>
           {noteOrInstructions()}
           <Grid.Row></Grid.Row>
           <Grid.Column width={4}>

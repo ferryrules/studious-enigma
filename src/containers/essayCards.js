@@ -7,7 +7,7 @@ export default function EssayCards(props) {
 
   const eachEssay = Object.entries(appSupp).map(apsp=>{
     return (
-      <Segment>
+      <Segment vertical textAlign='left' color='teal'>
         <h3>{apsp[0]}</h3>
         <EssayCard essays={apsp[1]} />
       </Segment>

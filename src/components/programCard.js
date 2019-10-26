@@ -60,7 +60,7 @@ export default function SuppCards(props) {
           </Grid>
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
-          <Grid fluid textAlign='left'>
+          <Grid fluid textAlign='left' divided>
             <NoteOrInstructions text={program['instructions']} />
             <Grid.Row></Grid.Row>
             {eachEssay}
