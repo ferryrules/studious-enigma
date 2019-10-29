@@ -79,6 +79,7 @@ export default function App() {
       }
     })
     .then(r=>r.json())
+    
     setSchool(school)
     programs(school)
     supplements(school)
