@@ -3,7 +3,7 @@ import EditPrompt from './editPrompts.js'
 import NoteOrInstructions from './noteOrInstructions.js'
 import { Accordion, Icon, Grid, Header } from 'semantic-ui-react'
 
-export default function SuppCards(props) {
+export default function ProgramDetails(props) {
   const { program } = props
   const [activeIndex, setActiveIndex] = useState(1)
   const handleClick = (e, titleProps) => {
@@ -12,12 +12,15 @@ export default function SuppCards(props) {
     setActiveIndex(newIndex)
   }
 
-  const eachEssay = program['supplements'].map(ps=>{
-    const eachPrompt = ps['prompts'].map(p=>{
+  const eachPrompt = (ps) => {
+    return ps['prompts'].map(p=>{
       return (
         <EditPrompt prompt={p['prompt']} key={p['prompt']}/>
       )
     })
+  }
+
+  const eachEssay = program['supplements'].map(ps=>{
     return (
       <Fragment key={ps['name']}>
         <Grid.Column width={4}>
@@ -31,7 +34,7 @@ export default function SuppCards(props) {
         <Grid.Column width={12}>
           <Grid.Row>
             <h5>PROMPTS</h5>
-            {eachPrompt}
+            {eachPrompt(ps)}
           </Grid.Row>
         </Grid.Column>
       </Fragment>

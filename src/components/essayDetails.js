@@ -4,7 +4,7 @@ import NoteOrInstructions from './noteOrInstructions.js'
 import { Accordion, Icon, Header, Grid, Segment } from 'semantic-ui-react'
 
 export default function EssayDetails(props) {
-  const { essay, details } = props
+  const { type, prompt } = props
   const [activeIndex, setActiveIndex] = useState(1)
   const handleClick = (e, titleProps) => {
     const { index } = titleProps
@@ -12,36 +12,40 @@ export default function EssayDetails(props) {
     setActiveIndex(newIndex)
   }
 
-  const eachDetail = details.map(d=>{
-    const eachPrompt = d['prompts'].map(p=>{
+  const eachPrompt = (d) => {
+    return d['prompts'].map(p=>{
       return (
         <EditPrompt prompt={p['prompt']} key={p['name']+p['prompt']}/>
       )
     })
-    const noteOrInstructions = () => {
-      return <NoteOrInstructions text={d['instructions']} />
-    }
+  }
+
+  const noteOrInstructions = (d) => {
+    return <NoteOrInstructions text={d['instructions']} />
+  }
+
+  const eachDetail = prompt.map(d=>{
     return (
       <Accordion.Content active={activeIndex === 0} key={d['name']}>
-      <Segment>
-        <Grid fluid="true" textAlign='left' divided>
-          {noteOrInstructions()}
-          <Grid.Row></Grid.Row>
-          <Grid.Column width={4}>
-            <Grid.Row>
-              <h5>DETAILS</h5>
-              Max Length: {d['display_length']}
-              <br />
-              { d['topic'] ? `Topic: ${d['topic']}` : null }
-            </Grid.Row>
-          </Grid.Column>
-          <Grid.Column width={12}>
-            <Grid.Row>
-              <h5>PROMPTS</h5>
-              {eachPrompt}
-            </Grid.Row>
-          </Grid.Column>
-        </Grid>
+        <Segment>
+          <Grid fluid="true" textAlign='left' divided>
+            {noteOrInstructions(d)}
+            <Grid.Row></Grid.Row>
+            <Grid.Column width={4}>
+              <Grid.Row>
+                <h5>DETAILS</h5>
+                Max Length: {d['display_length']}
+                <br />
+                { d['topic'] ? `Topic: ${d['topic']}` : null }
+              </Grid.Row>
+            </Grid.Column>
+            <Grid.Column width={12}>
+              <Grid.Row>
+                <h5>PROMPTS</h5>
+                {eachPrompt(d)}
+              </Grid.Row>
+            </Grid.Column>
+          </Grid>
         </Segment>
       </Accordion.Content>
     )
@@ -59,12 +63,12 @@ export default function EssayDetails(props) {
               <Grid.Column textAlign='left' width={8}>
                 <Header as='h3'>
                   <Icon name='dropdown' />
-                   {essay}
+                   {type}
                 </Header>
               </Grid.Column>
               <Grid.Column textAlign='right' width={8}>
                 <Header as='h5'>
-                  {details.length} { details.length === 1 ? 'Essay' : 'Essays' }
+                  {prompt.length} { prompt.length === 1 ? 'Essay' : 'Essays' }
                 </Header>
               </Grid.Column>
             </Grid>

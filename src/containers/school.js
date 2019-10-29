@@ -1,6 +1,6 @@
 import React from 'react'
 import EssayCards from './essayCards.js'
-import ProgramCard from '../components/programCard.js'
+import ProgramDetails from '../components/programDetails.js'
 import { Segment } from 'semantic-ui-react'
 
 function School(props) {
@@ -8,7 +8,7 @@ function School(props) {
 
   const eachProgram = programs.map(p=>{
     return (
-      <ProgramCard program={p} key={p['name']}/>
+      <ProgramDetails program={p} key={p['name']}/>
     )
   })
 

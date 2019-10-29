@@ -18,30 +18,29 @@ export default function App() {
   const [progMajScholArray, setProgMajScholArray] = useState([])
   const [appSuppArray, setAppSuppArray] = useState([])
 
-  const selectSchool = async(e) => {
-    progMajScholArray.forEach(p=>p.pop())
-    appSuppArray.forEach(a=>a.pop())
-    setLoading(true)
-    let iped = options.find(s=>{
-      return s['text'] === e.target.innerText
-    })
-    const school = await fetch(`${API}${iped['value']}/?identifierType=iped`, {
-      headers: {
-        'Authorization': `Token ${API_KEY}`
-      }
-    })
-    .then(r=>r.json())
-    setSchool(school)
-
+  // Populates array with common essays
+  const applicationEssays = (school) => {
     if (!school.applications.includes('University Application')) {
       school.applications.push('University Application')
     }
-    school.programs.forEach(p=>{
-      if (p.supplements.length > 0) {
-        progMajScholArray.push(p)
+    school.application_essays.forEach(app_es=>{
+      if (app_es.applications.length === 0) {
+        app_es.applications.push('Common App')
       }
+      app_es.applications.forEach(app_es_app=>{
+        if (!appSuppArray[app_es_app]) {
+          // eslint-disable-next-line
+          essayTypeKeys.map(etk=>{
+            appSuppArray[app_es_app] = {...appSuppArray[app_es_app], [etk]: []}
+          })
+        }
+        appSuppArray[app_es_app]['Application Essay'].push(app_es)
+      })
     })
+  }
 
+  // Populates array with optional or required supplements
+  const supplements = (school) => {
     school.supplements.forEach(sup=>{
       sup.applications.forEach(supap=>{
         if (!appSuppArray[supap]) {
@@ -57,23 +56,37 @@ export default function App() {
         }
       })
     })
-    school.application_essays.forEach(app_es=>{
-      if (app_es.applications.length === 0) {
-        app_es.applications.push('Common App')
+  }
+
+  // Populates array with program specific essays
+  const programs = (school) => {
+    school.programs.forEach(p=>{
+      if (p.supplements.length > 0) {
+        progMajScholArray.push(p)
       }
-      app_es.applications.forEach(app_es_app=>{
-        if (!appSuppArray[app_es_app]) {
-          // eslint-disable-next-line
-          essayTypeKeys.map(etk=>{
-            appSuppArray[app_es_app] = {...appSuppArray[app_es_app], [etk]: []}
-          })
-        }
-        appSuppArray[app_es_app]['Application Essay'].push(app_es)
-      })
     })
+  }
+
+  // Retrieves school information based on selection
+  const selectSchool = async(e) => {
+    setLoading(true)
+    let iped = options.find(s=>{
+      return s['text'] === e.target.innerText
+    })
+    const school = await fetch(`${API}${iped['value']}/?identifierType=iped`, {
+      headers: {
+        'Authorization': `Token ${API_KEY}`
+      }
+    })
+    .then(r=>r.json())
+    setSchool(school)
+    programs(school)
+    supplements(school)
+    applicationEssays(school)
     setLoading(false)
   }
-  
+
+  // Resets all arrays for new choice
   const resetChoice = () => {
     setSchool([])
     setProgMajScholArray([])

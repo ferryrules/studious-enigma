@@ -5,17 +5,17 @@ export default function EssayDetails(props) {
   const { prompt } = props
   const [editPrompt, setEditPrompt] = useState(false)
   const [newPrompt, setNewPrompt] = useState([prompt])
-
+  
   return (
     <Fragment>
       { editPrompt ? (
         <Form>
-          <TextArea fluid="true" onChange={(e)=>{setNewPrompt(e.target.value)}} />
+          <TextArea fluid="true" value={newPrompt} onChange={(e)=>{setNewPrompt(e.target.value)}} />
+          <Button onClick={()=>{setEditPrompt(false)}}>Save</Button>
         </Form>
       ) : (
-        <div dangerouslySetInnerHTML={{ __html: newPrompt}} />
+        <div onClick={()=>{setEditPrompt(true)}} dangerouslySetInnerHTML={{ __html: newPrompt}} />
       )}
-      <Button onClick={()=>{setEditPrompt(!editPrompt)}}>{editPrompt ? 'Save' : 'Edit'}</Button>
       <br />
     </Fragment>
   )
