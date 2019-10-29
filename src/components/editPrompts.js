@@ -10,7 +10,7 @@ export default function EssayDetails(props) {
     <Fragment>
       { editPrompt ? (
         <Form>
-          <TextArea fluid value={newPrompt} onChange={(e)=>{setNewPrompt(e.target.value)}} />
+          <TextArea fluid="true" onChange={(e)=>{setNewPrompt(e.target.value)}} />
         </Form>
       ) : (
         <div dangerouslySetInnerHTML={{ __html: newPrompt}} />

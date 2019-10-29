@@ -8,7 +8,7 @@ function School(props) {
 
   const eachProgram = programs.map(p=>{
     return (
-      <ProgramCard program={p} key={p['name']+p['id']}/>
+      <ProgramCard program={p} key={p['name']}/>
     )
   })
 

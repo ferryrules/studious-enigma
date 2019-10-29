@@ -15,11 +15,11 @@ export default function SuppCards(props) {
   const eachEssay = program['supplements'].map(ps=>{
     const eachPrompt = ps['prompts'].map(p=>{
       return (
-        <EditPrompt prompt={p['prompt']} />
+        <EditPrompt prompt={p['prompt']} key={p['prompt']}/>
       )
     })
     return (
-      <Fragment>
+      <Fragment key={ps['name']}>
         <Grid.Column width={4}>
           <Grid.Row>
             <h5>DETAILS</h5>
