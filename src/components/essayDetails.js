@@ -15,16 +15,16 @@ export default function EssayDetails(props) {
   const eachDetail = details.map(d=>{
     const eachPrompt = d['prompts'].map(p=>{
       return (
-        <EditPrompt prompt={p['prompt']} />
+        <EditPrompt prompt={p['prompt']} key={p['name']+p['prompt']}/>
       )
     })
     const noteOrInstructions = () => {
       return <NoteOrInstructions text={d['instructions']} />
     }
     return (
-      <Accordion.Content active={activeIndex === 0}>
+      <Accordion.Content active={activeIndex === 0} key={d['name']}>
       <Segment>
-        <Grid fluid textAlign='left' divided>
+        <Grid fluid="true" textAlign='left' divided>
           {noteOrInstructions()}
           <Grid.Row></Grid.Row>
           <Grid.Column width={4}>
@@ -48,7 +48,7 @@ export default function EssayDetails(props) {
   })
 
   return (
-    <Fragment textAlign='center'>
+    <Fragment>
       { eachDetail.length > 0 ?
         (<Accordion fluid styled>
           <Accordion.Title

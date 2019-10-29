@@ -6,7 +6,7 @@ export default function EssayCard(props) {
 
   const eachEssay = Object.entries(essays).map(es=>{
     return (
-      <EssayDetails essay={es[0]} details={es[1]} />
+      <EssayDetails essay={es[0]} details={es[1]} key={es[0]}/>
     )
   })
 

@@ -32,6 +32,7 @@ export default function App() {
     })
     .then(r=>r.json())
     setSchool(school)
+
     if (!school.applications.includes('University Application')) {
       school.applications.push('University Application')
     }
@@ -72,7 +73,7 @@ export default function App() {
     })
     setLoading(false)
   }
-
+  
   const resetChoice = () => {
     setSchool([])
     setProgMajScholArray([])
