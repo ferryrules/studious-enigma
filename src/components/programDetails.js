@@ -5,12 +5,6 @@ import { Accordion, Icon, Grid, Header } from 'semantic-ui-react'
 
 export default function ProgramDetails(props) {
   const { program, activeIndex, handleClick } = props
-  // const [activeIndex, setActiveIndex] = useState(1)
-  // const handleClick = (e, titleProps) => {
-  //   const { index } = titleProps
-  //   const newIndex = activeIndex === index ? -1 : index
-  //   setActiveIndex(newIndex)
-  // }
 
   const eachPrompt = (ps) => {
     return ps['prompts'].map(p=>{

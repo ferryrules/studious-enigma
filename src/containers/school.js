@@ -5,7 +5,6 @@ import { Segment } from 'semantic-ui-react'
 
 function School(props) {
   const { school, programs, appSupp } = props
-
   const [openThisOne, setOpenThisOne] = useState([])
 
   const matchPrompt = (prompt) => {
