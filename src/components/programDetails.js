@@ -1,4 +1,4 @@
-import React, {useState, Fragment} from 'react'
+import React, {Fragment} from 'react'
 import EditPrompt from './editPrompts.js'
 import NoteOrInstructions from './noteOrInstructions.js'
 import { Accordion, Icon, Grid, Header } from 'semantic-ui-react'

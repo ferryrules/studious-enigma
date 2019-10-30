@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import EssayDetails from '../components/essayDetails.js'
 import { Segment } from 'semantic-ui-react'
 
