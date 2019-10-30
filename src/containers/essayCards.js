@@ -4,19 +4,18 @@ import { Segment } from 'semantic-ui-react'
 
 export default function EssayCards(props) {
   const { appSupp } = props
-  const [activeIndex, setActiveIndex] = useState(1)
   const [openThisOne, setOpenThisOne] = useState([])
-
-  const handleClick = (e, titleProps, prompt) => {
-
-    setOpenThisOne(prompt)
-    const { index } = titleProps
-    const newIndex = activeIndex === index ? 1 : index
-    setActiveIndex(newIndex)
-  }
 
   const match = (prompt) => {
     return prompt === openThisOne
+  }
+
+  const handleClick = (e, titleProps, prompt) => {
+    if (match(prompt)) {
+      setOpenThisOne([])
+    } else {
+      setOpenThisOne(prompt)
+    }
   }
 
   const eachEssayType = (essays) => {
@@ -35,7 +34,6 @@ export default function EssayCards(props) {
       </Segment>
     )
   })
-
 
   return (
     <div>
