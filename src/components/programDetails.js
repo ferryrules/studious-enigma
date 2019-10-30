@@ -4,13 +4,13 @@ import NoteOrInstructions from './noteOrInstructions.js'
 import { Accordion, Icon, Grid, Header } from 'semantic-ui-react'
 
 export default function ProgramDetails(props) {
-  const { program } = props
-  const [activeIndex, setActiveIndex] = useState(1)
-  const handleClick = (e, titleProps) => {
-    const { index } = titleProps
-    const newIndex = activeIndex === index ? -1 : index
-    setActiveIndex(newIndex)
-  }
+  const { program, activeIndex, handleClick } = props
+  // const [activeIndex, setActiveIndex] = useState(1)
+  // const handleClick = (e, titleProps) => {
+  //   const { index } = titleProps
+  //   const newIndex = activeIndex === index ? -1 : index
+  //   setActiveIndex(newIndex)
+  // }
 
   const eachPrompt = (ps) => {
     return ps['prompts'].map(p=>{
@@ -47,7 +47,7 @@ export default function ProgramDetails(props) {
         <Accordion.Title
           active={activeIndex===0}
           index={0}
-          onClick={handleClick}>
+          onClick={(e, titleProps)=>{handleClick(e, titleProps, program)}}>
           <Grid>
             <Grid.Column textAlign='left' width={8}>
               <Header as='h3'>

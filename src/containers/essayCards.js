@@ -3,25 +3,12 @@ import EssayDetails from '../components/essayDetails.js'
 import { Segment } from 'semantic-ui-react'
 
 export default function EssayCards(props) {
-  const { appSupp } = props
-  const [openThisOne, setOpenThisOne] = useState([])
-
-  const match = (prompt) => {
-    return prompt === openThisOne
-  }
-
-  const handleClick = (e, titleProps, prompt) => {
-    if (match(prompt)) {
-      setOpenThisOne([])
-    } else {
-      setOpenThisOne(prompt)
-    }
-  }
+  const { appSupp, matchPrompt, handleClick } = props
 
   const eachEssayType = (essays) => {
     return Object.entries(essays).map(([type, prompt])=>{
       return (
-        <EssayDetails type={type} prompt={prompt} key={type} activeIndex={match(prompt) ? 0 : 1} handleClick={handleClick} />
+        <EssayDetails type={type} prompt={prompt} key={type} activeIndex={matchPrompt(prompt) ? 0 : 1} handleClick={handleClick} />
       )
     })
   }
